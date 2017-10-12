@@ -9,8 +9,9 @@ RSS_FEEDS = {"nyt": "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
 			 "sk": "http://feeds.feedburner.com/smittenkitchen",
 			 "whole30": "http://www.whole30.com/feed"}
 
+@app.route("/")
 @app.route("/<publication>")
-def get_news(publication):
+def get_news(publication="nyt"):
 	feed = feedparser.parse(RSS_FEEDS[publication])
 	first_article = feed['entries'][0]
 	return """<html>

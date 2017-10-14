@@ -5,7 +5,7 @@
 
 <body>
 	<h1>Headline News</h1>
-	<h5>created by <a href="http://alonavarshal.com">UV Wave</a> using <a href="http://flask.pocoo.org">Flask</a>.</h5>
+	<h5>Adapted by <a href="http://alonavarshal.com">UV Wave</a> using <a href="http://flask.pocoo.org">Flask</a>.</h5>
 	<h2>Current weather</h2>
 	<form>
 		<input type="text" name="city" placeholder="weather search">
@@ -16,17 +16,15 @@
 	<h2>Currency</h2>
 	<form>
 		from: <select name="currency_from">
-			<option value="USD">USD</option>
-			<option value="GBP">GBP</option>
-			<option value="EUR">EUR</option>
-			<option value="PHP">PHP</option>
+			{% for currency in currencies %}
+	 			<option value="{{ currency }}" {{ 'selected="selected"' if currency_from==currency }}>{{ currency }}</option>
+			{% endfor %}
 			</select>
 		to: <select name="currency_to">
-			<option value="USD">USD</option>
-			<option value="GBP">GBP</option>
-			<option value="EUR">EUR</option>
-			<option value="PHP">PHP</option>
-		</select>
+			{% for currency in currencies %}
+       			<option value="{{ currency }}" {{ 'selected="selected"' if currency_to==currency }}>{{ currency }}</option>
+    		{% endfor %}
+			</select>
 		<input type="submit" value="Submit">
 	</form>
 	<p>1 {{ currency_from }} = {{ currency_to }} {{ rate }}</p>

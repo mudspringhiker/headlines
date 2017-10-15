@@ -14,6 +14,7 @@ RSS_FEEDS = {"New York Times": "http://rss.nytimes.com/services/xml/rss/nyt/Home
 			 "Inquirer": "http://www.inquirer.net/fullfeed",
 			 "Rappler": "http://feeds.feedburner.com/rappler/",
 			 "Philippine Star": "http://www.philstar.com/rss/headlines",
+			 "Manila Bulletin": "https://mb.com.ph/mb-feed/",
 			 "Talk Python": "https://talkpython.fm/episodes/rss"}
 
 DEFAULTS = {'publication': 'Inquirer',

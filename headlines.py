@@ -6,15 +6,13 @@ import urllib
 
 app = Flask(__name__)
 
-RSS_FEEDS = {"nyt": "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
-			 "cnn": "http://rss.cnn.com/rss/edition.rss",
-			 "wsj": "http://www.wsj.com/xml/rss/3_7455.xml",
-			 "sk": "http://feeds.feedburner.com/smittenkitchen",
-			 "whole30": "http://www.whole30.com/feed",
-			 "inq": "http://www.inquirer.net/fullfeed",
-			 "rappler": "http://feeds.feedburner.com/rappler/"}
+RSS_FEEDS = {"New York Times": "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+			 "CNN": "http://rss.cnn.com/rss/edition.rss",
+			 "Wall Street Journal": "http://www.wsj.com/xml/rss/3_7455.xml",
+			 "Inquirer": "http://www.inquirer.net/fullfeed",
+			 "Rappler": "http://feeds.feedburner.com/rappler/"}
 
-DEFAULTS = {'publication': 'inq',
+DEFAULTS = {'publication': 'Inquirer',
 			'city': 'Los Banos, Philippines',
 			'currency_from': 'USD',
 			'currency_to': 'PHP'}
@@ -29,7 +27,7 @@ def home():
 	publication = request.args.get('publication')
 	if not publication:
 		publication = DEFAULTS['publication']
-	articles = get_news(publication)
+	articles, publications = get_news(publication)
 	# get customized weather based on user input or default
 	city = request.args.get('city')
 	if not city:
@@ -45,7 +43,8 @@ def home():
 	rate, currencies = get_rate(currency_from, currency_to)
 	return render_template("home.html", articles=articles, weather=weather,
 		  					currency_from=currency_from, currency_to=currency_to,
-		  					rate=rate, currencies=sorted(currencies))
+		  					rate=rate, currencies=sorted(currencies),
+		  					publications=publications, publication=publication)
 
 
 def get_news(query):
@@ -54,7 +53,7 @@ def get_news(query):
 	else:
 		publication = query.lower()
 	feed = feedparser.parse(RSS_FEEDS[publication])
-	return feed['entries']
+	return feed['entries'], RSS_FEEDS.keys()
 
 
 def get_weather(query):

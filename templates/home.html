@@ -33,7 +33,7 @@
 	<form>
 		<select name="publication">
 			{% for pub in publications %}
-			    <option value="{{ pub }}" {{ 'selected="selected"' if publication==pub }}'>{{ pub }}</option>
+			    <option value="{{ pub }}" {{ 'selected="selected"' if publication==pub }}>{{ pub }}</option>
 			{% endfor %}
 		</select>
 		<input type="submit" value="Submit">

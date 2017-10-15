@@ -44,7 +44,7 @@ def home():
 	return render_template("home.html", articles=articles, weather=weather,
 		  					currency_from=currency_from, currency_to=currency_to,
 		  					rate=rate, currencies=sorted(currencies),
-		  					publications=publications, publication=publication)
+		  					publications=RSS_FEEDS.keys(), publication=publication)
 
 
 def get_news(query):

@@ -27,7 +27,7 @@ def home():
 	publication = request.args.get('publication')
 	if not publication:
 		publication = DEFAULTS['publication']
-	articles = get_news(publication)
+	articles, publications = get_news(publication)
 	# get customized weather based on user input or default
 	city = request.args.get('city')
 	if not city:
@@ -43,7 +43,8 @@ def home():
 	rate, currencies = get_rate(currency_from, currency_to)
 	return render_template("home.html", articles=articles, weather=weather,
 		  					currency_from=currency_from, currency_to=currency_to,
-		  					rate=rate, currencies=sorted(currencies))
+		  					rate=rate, currencies=sorted(currencies),
+		  					publications=publications, publication=publication)
 
 
 def get_news(query):
@@ -52,7 +53,7 @@ def get_news(query):
 	else:
 		publication = query
 	feed = feedparser.parse(RSS_FEEDS[publication])
-	return feed['entries']
+	return feed['entries'], RSS_FEEDS.keys()
 
 
 def get_weather(query):
